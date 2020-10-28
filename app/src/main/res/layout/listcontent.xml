@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal"
+android:background="@color/background">
+
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+        <TextView
+                android:id="@+id/listdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="@color/text" android:text="date" android:gravity="center"
+                app:fontFamily="@font/montserrat" android:textSize="12sp" android:layout_weight="1"
+                android:paddingTop="20dp" android:paddingBottom="20dp" android:paddingLeft="10dp"
+                android:paddingRight="10dp"/>
+        <TextView
+                android:id="@+id/listtemp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text" android:text="temp"
+                app:fontFamily="@font/montserrat"
+                android:textSize="12sp" android:layout_weight="1" android:paddingTop="20dp"
+                android:paddingBottom="20dp" android:paddingLeft="10dp" android:paddingRight="10dp"/>
+        <TextView
+                android:id="@+id/listtempmin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text" android:text="min" android:layout_weight="1"
+                app:fontFamily="@font/montserrat" android:textSize="12sp" android:paddingTop="20dp"
+                android:paddingBottom="20dp" android:paddingLeft="10dp" android:paddingRight="10dp"/>
+        <TextView
+                android:id="@+id/listrain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text" android:text="rain" android:layout_weight="1"
+                app:fontFamily="@font/montserrat" android:textSize="12sp" android:paddingTop="20dp"
+                android:paddingBottom="20dp" android:paddingLeft="10dp" android:paddingRight="10dp"/>
+        <TextView
+                android:id="@+id/listwind"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text" android:text="wind" android:layout_weight="1"
+                app:fontFamily="@font/montserrat" android:textSize="12sp" android:paddingTop="20dp"
+                android:paddingBottom="20dp" android:paddingLeft="10dp" android:paddingRight="10dp"/>
+    </LinearLayout>
+
+</LinearLayout>

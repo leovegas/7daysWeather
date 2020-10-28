@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.leo.weather7days.MainActivity">
+    <item android:title="Item" android:icon="@drawable/ic_refresh"
+          app:showAsAction="always" android:id="@+id/resfresh"/>
+    <item
+            android:id="@+id/app_bar_search"
+            android:icon="@drawable/ic_search_black_24dp"
+            android:imeOptions="actionSearch"
+            app:showAsAction="always"
+            android:title="Search" app:actionViewClass="android.widget.SearchView"/>
+    <item android:title="Item"
+          android:id="@+id/get_local"
+          app:showAsAction="always"
+          android:icon="@drawable/ic_localsvg"/>
+    <item android:id="@+id/action_settings"
+          android:title="@string/action_settings"
+          android:orderInCategory="100"
+          app:showAsAction="never"/>
+</menu>

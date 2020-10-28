@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Weather7days</string>
+    <string name="action_settings">About</string>
+    <string name="textTitle">Powered by www.troposphere.io\nDeveloper: timplay89@gmail.com</string>
+    <string name="textButton">OK</string>
+
+</resources>
