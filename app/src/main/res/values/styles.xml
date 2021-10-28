@@ -13,5 +13,12 @@
     </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
-
+    <style name="text_top">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#9B9EAD</item>
+    </style>
+    <style name="text_top_values">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#F1F4FF</item>
+    </style>
 </resources>
