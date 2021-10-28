@@ -1,29 +1,33 @@
 package com.leo.weather7days;
 
 import android.app.SearchManager;
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.icu.text.SimpleDateFormat;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.*;
-import android.text.Layout;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.StrictMode;
 import android.util.Log;
-import android.view.*;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.*;
+import android.widget.FrameLayout;
+import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
@@ -36,14 +40,12 @@ import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.leo.weather7days.jsonclasses.Daily;
 import com.leo.weather7days.jsonclasses.Weather7days;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.ParseException;
 import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -59,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     private GpsTracker gpsTracker;
     private TextView tvLatitude, city, date, degree, windspeed, windgusts, clouds, humidity, sunset, sunrise;
     private double latitude,longitude;
-    private final String API_KEY = "";
+    private final String API_KEY = "1e62b9efe3587050f170062726048d1e3db6cbe2d93b2006f1e";
     private Weather7days weather7days;
     private ArrayList<Float> values = new ArrayList<>();
     private boolean flagValues = false;
@@ -142,9 +144,9 @@ public class MainActivity extends AppCompatActivity {
         barChart.setBorderColor(Color.TRANSPARENT);
 
         if (weather7days!=null) {
-            weather7days.data.daily.forEach(e -> {
+            for (Daily e : weather7days.data.daily) {
                 values.add((float) e.rain);
-            });
+            }
         }else {
             for (int i = 0; i < 7; i++) {
                 values.add((float) 0);
@@ -165,9 +167,9 @@ public class MainActivity extends AppCompatActivity {
                     if (chartClicks==0){
                         values.clear();
                         if (weather7days!=null){
-                            weather7days.data.daily.forEach(e -> {
+                            for (Daily e : weather7days.data.daily) {
                                 values.add((float) e.temperature);
-                            });
+                            }
                         }
                         if (isOnline())
                             updateChart("Temperature next 7 days");
@@ -178,9 +180,9 @@ public class MainActivity extends AppCompatActivity {
                 if (chartClicks==1){
                         values.clear();
                         if (weather7days!=null){
-                            weather7days.data.daily.forEach(e -> {
+                            for (Daily e : weather7days.data.daily) {
                                 values.add((float) e.rain);
-                            });
+                            }
                         }
                         if (isOnline())
                             updateChart("Rain (mm) next 7 days");
@@ -189,9 +191,9 @@ public class MainActivity extends AppCompatActivity {
                 if (chartClicks==2){
                         values.clear();
                         if (weather7days!=null){
-                            weather7days.data.daily.forEach(e -> {
+                            for (Daily e : weather7days.data.daily) {
                                 values.add((float) e.windSpeed);
-                            });
+                            }
                         }
                         if (isOnline())
                             updateChart("Wind speed (m/s) next 7 days");
@@ -200,9 +202,9 @@ public class MainActivity extends AppCompatActivity {
                 if (chartClicks==3){
                         values.clear();
                         if (weather7days!=null){
-                            weather7days.data.daily.forEach(e -> {
+                            for (Daily e : weather7days.data.daily) {
                                 values.add((float) e.relHumidity);
-                            });
+                            }
                         }
                         if (isOnline())
                             updateChart("Humidity (%) next 7 days");
@@ -211,9 +213,9 @@ public class MainActivity extends AppCompatActivity {
                 if (chartClicks==4){
                         values.clear();
                         if (weather7days!=null){
-                            weather7days.data.daily.forEach(e -> {
+                            for (Daily e : weather7days.data.daily) {
                                 values.add((float) e.preasure);
-                            });
+                            }
                         }
                         if (isOnline())
                             updateChart("Preasure (P) next 7 days");
@@ -270,9 +272,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (weather7days!=null) {
-            weather7days.data.daily.forEach(e -> {
+            for (Daily e : weather7days.data.daily) {
                 values.add((float) e.rain);
-            });
+            }
         }else {
             for (int i = 0; i < 7; i++) {
                 values.add((float) 0);
@@ -298,9 +300,9 @@ public class MainActivity extends AppCompatActivity {
             else toast.show();
             weather7days = displayTemp(longitude,latitude);
             if (weather7days!=null){
-                weather7days.data.daily.forEach(e -> {
+                for (Daily e : weather7days.data.daily) {
                     values.add((float) e.rain);
-                });
+                }
             }
         }
     }
@@ -453,9 +455,9 @@ public class MainActivity extends AppCompatActivity {
             sunset.setText(String.valueOf(weather7days.data.daily.get(0).sun.sunset.substring(11, 19)));
 
             buf.clear();
-            weather7days.data.daily.forEach(e -> {
+            for (Daily e : weather7days.data.daily) {
                 buf.add(String.valueOf(e.rain));
-            });
+            }
 
 //        Intent intent = new Intent(this, ListActivity.class);
 //        String message = "Temp: "+String.valueOf(weather7days.data.current.temperature);
@@ -492,15 +494,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 final View menuItemView = findViewById(R.id.frameLayout);
-                about.setOnMenuItemClickListener(item -> {
+                about.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
 
-                    PopUpClass popUpClass = new PopUpClass();
-                    popUpClass.showPopupWindow(menuItemView);
+                        PopUpClass popUpClass = new PopUpClass();
+                        popUpClass.showPopupWindow(menuItemView);
 
-                    return false;
+                        return false;
+                    }
                 });
-                // SOME OF YOUR TASK AFTER GETTING VIEW REFERENCE
-
             }
         });
 
